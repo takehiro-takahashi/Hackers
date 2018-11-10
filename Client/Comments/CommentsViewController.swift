@@ -12,6 +12,7 @@ import SafariServices
 import libHN
 import DZNEmptyDataSet
 import SkeletonView
+import EECellSwipeGestureRecognizer
 
 class CommentsViewController : UIViewController {
     var post: HNPost?
@@ -133,6 +134,19 @@ extension CommentsViewController: UITableViewDataSource {
         
         cell.comment = comment
         cell.delegate = self
+        
+        let gestureRecognizer = EECellSwipeGestureRecognizer()
+        let action = EECellSwipeAction(fraction: -0.2)
+        action.behavior = .pull
+        action.didTrigger = { (tableView, indexPath) in
+            let comment = self.commentsController.visibleComments[indexPath.row]
+            let rootCommentIndex = self.commentsController.rootIndexOfComment(comment)
+            
+            self.toggleCellVisibilityForCell(IndexPath(row: rootCommentIndex, section: 0), scrollIfCellCovered: false)
+            self.tableView.scrollToRow(at: IndexPath(row: rootCommentIndex, section: 0), at: .top, animated: true)
+        }
+        gestureRecognizer.add(actions: [action])
+        cell.addGestureRecognizer(gestureRecognizer)
         
         return cell
     }

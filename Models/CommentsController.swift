@@ -79,4 +79,21 @@ class CommentsController {
         
         return count
     }
+    
+    /// Gets the index of the root parent of this comment
+    func rootIndexOfComment(_ comment: CommentModel) -> Int {
+        var rootCommentIndex: Int?
+        var index = indexOfComment(comment, source: visibleComments)!
+        
+        while rootCommentIndex == nil {
+            if visibleComments[index].level == 0 {
+                rootCommentIndex = index
+            } else {
+                guard index > 0 else { return 0 }
+                index = index - 1
+            }
+        }
+        
+        return index
+    }
 }

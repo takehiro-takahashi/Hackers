@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class CommentTableViewCell : UITableViewCell {
     var delegate: CommentDelegate?
     

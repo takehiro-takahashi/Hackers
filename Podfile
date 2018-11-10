@@ -8,6 +8,7 @@ target 'Hackers' do
     pod 'PromiseKit', '~> 4.x'
     pod 'SkeletonView'
     pod 'Kingfisher'
+    pod 'EECellSwipeGestureRecognizer'
 end
 
 post_install do |installer|
